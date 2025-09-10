@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Shopping Mall</title>
+  <style>
+    :root{ --accent:#2b6cb0; --muted:#666; --card-bg:#fff; --bg:#f5f7fb }
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, Arial, sans-serif; margin:0; background:var(--bg); color:#111}
+    header{background:#fff; padding:18px 24px; box-shadow:0 1px 6px rgba(20,20,40,0.06); position:sticky; top:0; z-index:10}
+    .container{max-width:1100px; margin:0 auto; padding:20px}
+    .brand{font-weight:700; color:var(--accent); letter-spacing:0.4px}
+    nav{display:flex; gap:12px; align-items:center}
+    .nav-right{margin-left:auto; display:flex; gap:10px}
+    .btn{background:var(--accent); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer}
+
+    .hero{display:flex; gap:20px; align-items:center; background:linear-gradient(90deg,#fff 0,#f9fbff); padding:28px; border-radius:12px}
+    .hero h1{margin:0; font-size:22px}
+    .filters{display:flex; gap:10px; margin:18px 0}
+    .chip{padding:8px 12px; border-radius:999px; background:#fff; border:1px solid #e6ecf8; cursor:pointer}
+    .chip.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+
+    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px}
+    .card{background:var(--card-bg); padding:12px; border-radius:10px; box-shadow:0 4px 10px rgba(20,20,40,0.04); display:flex; flex-direction:column}
+    .thumb{height:180px; border-radius:8px; background:#eef3ff; display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--muted)}
+    .title{font-weight:600; margin-top:12px}
+    .price{color:var(--accent); margin-top:6px}
+    .small{font-size:13px; color:var(--muted)}
+
+    footer{padding:20px 0; text-align:center; color:var(--muted)}
+    @media (max-width:600px){ .hero{flex-direction:column; text-align:center} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="brand">MallKart</div>
+        <div class="small">One-stop shop for the family</div>
+      </div>
+      <nav class="nav-right">
+        <input id="search" placeholder="Search products..." style="padding:8px 10px; border-radius:8px; border:1px solid #e7ecf6" />
+        <button class="btn" onclick="showCart()">Cart</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div style="flex:1">
+        <h1>Welcome to MallKart — categories for everyone</h1>
+        <p class="small">Browse Women's, Men's and Kids' wear. Click a category below to filter products.</p>
+        <div class="filters" role="tablist" aria-label="Categories">
+          <button class="chip active" data-cat="all" onclick="filterCategory(event)">All</button>
+          <button class="chip" data-cat="women" onclick="filterCategory(event)">Women\'s Wear</button>
+          <button class="chip" data-cat="men" onclick="filterCategory(event)">Men\'s Wear</button>
+          <button class="chip" data-cat="kids" onclick="filterCategory(event)">Kids\' Wear</button>
+        </div>
+      </div>
+      <div style="width:220px">
+        <div style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(20,20,40,0.04)">
+          <h3 style="margin:0 0 8px 0">Quick tips</h3>
+          <ul style="margin:0;padding-left:18px;color:var(--muted)">
+            <li>Click product to see details</li>
+            <li>Use the Search box to find items</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:22px">
+      <div id="products" class="grid">
+        <!-- Product cards. Add or remove items here -->
+
+        <article class="card" data-category="women">
+          <div class="thumb">Women: Floral Dress (Image)</div>
+          <div class="title">Floral Summer Dress</div>
+          <div class="small">Size: S, M, L</div>
+          <div class="price">₹1,299</div>
+        </article>
+
+        <article class="card" data-category="men">
+          <div class="thumb">Men: Casual Shirt (Image)</div>
+          <div class="title">Slim Fit Casual Shirt</div>
+          <div class="small">Sizes: M, L, XL</div>
+          <div class="price">₹899</div>
+        </article>
+
+        <article class="card" data-category="kids">
+          <div class="thumb">Kids: Playset (Image)</div>
+          <div class="title">Kids Cartoon T-shirt</div>
+          <div class="small">Ages: 2-8 yrs</div>
+          <div class="price">₹399</div>
+        </article>
+
+        <article class="card" data-category="women">
+          <div class="thumb">Women: Handbag (Image)</div>
+          <div class="title">Leatherette Handbag</div>
+          <div class="small">Color: Brown</div>
+          <div class="price">₹1,599</div>
+        </article>
+
+        <article class="card" data-category="men">
+          <div class="thumb">Men: Jeans (Image)</div>
+          <div class="title">Denim Jeans</div>
+          <div class="small">Sizes: 30, 32, 34</div>
+          <div class="price">₹1,099</div>
+        </article>
+
+        <article class="card" data-category="kids">
+          <div class="thumb">Kids: Jacket (Image)</div>
+          <div class="title">Warm Kids Jacket</div>
+          <div class="small">Ages: 3-10 yrs</div>
+          <div class="price">₹749</div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">© MallKart • Built with ❤️</div>
+  </footer>
+
+  <script>
+    // Simple category filter
+    function filterCategory(e){
+      const cat = e.target.getAttribute('data-cat');
+      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      e.target.classList.add('active');
+      const cards = document.querySelectorAll('#products .card');
+      cards.forEach(card => {
+        if(cat === 'all') card.style.display = '';
+        else card.style.display = card.getAttribute('data-category') === cat ? '' : 'none';
+      });
+    }
+
+    // Basic search (title + small text)
+    document.getElementById('search').addEventListener('input', function(){
+      const q = this.value.trim().toLowerCase();
+      document.querySelectorAll('#products .card').forEach(card=>{
+        const txt = (card.querySelector('.title').innerText + ' ' + (card.querySelector('.small')?.innerText||'')).toLowerCase();
+        card.style.display = txt.includes(q) ? '' : 'none';
+      });
+    });
+
+    function showCart(){
+      alert('Cart is empty — want me to add a simple cart for this demo?');
+    }
+  </script>
+</body>
+</html>
